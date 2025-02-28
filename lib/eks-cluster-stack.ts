@@ -33,11 +33,11 @@ export class EksClusterStack extends cdk.Stack {
       defaultCapacity: 0,
       vpc,
       vpcSubnets: [{ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }],
-      kubectlLayer: kubectl.KubectlV28Layer.fromLayerVersionArn(
-        this,
-        "KubectlLayer",
-        "arn:aws:lambda:ap-southeast-2:391970746680:layer:kubectl-v28" // Use kubectl-v29 ARN if you have 1.29
-      ),
+      //kubectlLayer: kubectl.KubectlV28Layer.fromLayerVersionArn(
+      //this,
+      //"KubectlLayer",
+      //"arn:aws:lambda:ap-southeast-2:391970746680:layer:kubectl-v28" // Use kubectl-v29 ARN if you have 1.29
+      //),
     });
 
     const aud = `${cluster.clusterOpenIdConnectIssuer}:aud`;
