@@ -36,7 +36,7 @@ export class EksClusterStack extends cdk.Stack {
       kubectlLayer: kubectl.KubectlV28Layer.fromLayerVersionArn(
         this,
         "KubectlLayer",
-        "arn:aws:lambda:your-region:your-account-id:layer:kubectl-v28" // Use kubectl-v29 ARN if you have 1.29
+        "arn:aws:lambda:ap-southeast-2:391970746680:layer:kubectl-v28" // Use kubectl-v29 ARN if you have 1.29
       ),
     });
 
