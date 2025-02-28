@@ -1,4 +1,4 @@
-import { Construct } from 'constructs';
+import { Construct } from "constructs";
 import eks = require("aws-cdk-lib/aws-eks");
 import iam = require("aws-cdk-lib/aws-iam");
 
@@ -62,7 +62,7 @@ export class ContainerInsights extends Construct {
     props.cluster.addHelmChart("AwsForFluentBit", {
       chart: "aws-for-fluent-bit",
       release: "aws-for-fluent-bit",
-      version: "0.1.11",
+      version: "latest-available-version", // Use the latest available version
       repository: "https://aws.github.io/eks-charts",
       values: {
         cloudWatch: {
@@ -81,6 +81,13 @@ export class ContainerInsights extends Construct {
         serviceAccount: {
           create: false,
           name: "aws-for-fluent-bit",
+        },
+        // Add these options to disable PodSecurityPolicy and ClusterRole creation if available
+        podSecurityPolicy: {
+          create: false, // Disable the PodSecurityPolicy creation
+        },
+        rbac: {
+          create: false, // Disable the creation of ClusterRole and ClusterRoleBinding
         },
       },
       namespace: "kube-system",
