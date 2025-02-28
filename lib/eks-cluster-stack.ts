@@ -1,9 +1,10 @@
 import * as cdk from "aws-cdk-lib";
-import { Construct } from 'constructs';
+import { Construct } from "constructs";
 
 import eks = require("aws-cdk-lib/aws-eks");
 import ec2 = require("aws-cdk-lib/aws-ec2");
 import iam = require("aws-cdk-lib/aws-iam");
+import * as kubectl from "@aws-cdk/lambda-layer-kubectl-v28";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 
 import { EksManagedNodeGroup } from "./infrastructure/eks-mng";
@@ -32,6 +33,11 @@ export class EksClusterStack extends cdk.Stack {
       defaultCapacity: 0,
       vpc,
       vpcSubnets: [{ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }],
+      kubectlLayer: kubectl.KubectlV28Layer.fromLayerVersionArn(
+        this,
+        "KubectlLayer",
+        "arn:aws:lambda:your-region:your-account-id:layer:kubectl-v28" // Use kubectl-v29 ARN if you have 1.29
+      ),
     });
 
     const aud = `${cluster.clusterOpenIdConnectIssuer}:aud`;

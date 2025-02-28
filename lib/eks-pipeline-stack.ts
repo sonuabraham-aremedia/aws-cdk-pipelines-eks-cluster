@@ -1,6 +1,5 @@
 import * as cdk from "aws-cdk-lib";
-import { KubectlLayer } from 'aws-cdk-lib/lambda-layer-kubectl';
-
+import { KubectlLayer } from "aws-cdk-lib/lambda-layer-kubectl";
 
 import eks = require("aws-cdk-lib/aws-eks");
 import * as ssm from "aws-cdk-lib/aws-ssm";
@@ -20,11 +19,12 @@ export class EksPipelineStack extends cdk.Stack {
     const pipeline = new CodePipeline(this, "Pipeline", {
       synth: new ShellStep("Synth", {
         input: CodePipelineSource.gitHub(
-          "aws-samples/aws-cdk-pipelines-eks-cluster",
+          "sonuabraham-aremedia/aws-cdk-pipelines-eks-cluster",
           "main",
           {
-            authentication:
-              cdk.SecretValue.secretsManager("github-oauth-token"),
+            authentication: cdk.SecretValue.secretsManager(
+              "github-oauth-token1"
+            ),
           }
         ),
         commands: ["npm ci", "npm run build", "npx cdk synth"],
@@ -48,7 +48,7 @@ export class EksPipelineStack extends cdk.Stack {
     });
 
     const eksClusterStageB = new EksClusterStage(this, "EKSClusterB", {
-      clusterVersion: eks.KubernetesVersion.V1_29,
+      clusterVersion: eks.KubernetesVersion.V1_28,
       kubectlLayer: kubectlLayer,
       nameSuffix: clusterBNameSuffix,
       env: {
