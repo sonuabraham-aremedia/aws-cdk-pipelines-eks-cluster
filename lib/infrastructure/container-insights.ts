@@ -62,7 +62,7 @@ export class ContainerInsights extends Construct {
     props.cluster.addHelmChart("AwsForFluentBit", {
       chart: "aws-for-fluent-bit",
       release: "aws-for-fluent-bit",
-      version: "latest-available-version", // Use the latest available version
+      version: "0.1.34", // Use the latest available version
       repository: "https://aws.github.io/eks-charts",
       values: {
         cloudWatch: {
