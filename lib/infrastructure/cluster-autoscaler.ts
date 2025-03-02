@@ -1,6 +1,6 @@
-import { Construct } from 'constructs';
-import eks = require("aws-cdk-lib/aws-eks");
-import iam = require("aws-cdk-lib/aws-iam");
+import { Construct } from "constructs";
+import * as eks from "aws-cdk-lib/aws-eks";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 export interface ClusterAutoScalerProps {
   cluster: eks.Cluster;
@@ -20,6 +20,7 @@ export class ClusterAutoscaler extends Construct {
 
     caServiceAccount.addToPrincipalPolicy(
       new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
         resources: ["*"],
         actions: [
           "autoscaling:DescribeAutoScalingGroups",
@@ -47,8 +48,15 @@ export class ClusterAutoscaler extends Construct {
         autoDiscovery: {
           clusterName: props.cluster.clusterName,
         },
+        extraArgs: {
+          "skip-nodes-with-local-storage": "false",
+          "skip-nodes-with-system-pods": "false",
+        },
+        podDisruptionBudget: {
+          enabled: true,
+        },
       },
-      version: "9.10.7",
+      version: "9.29.0",
       namespace: "kube-system",
     });
 
@@ -58,6 +66,12 @@ export class ClusterAutoscaler extends Construct {
       repository: "https://charts.bitnami.com/bitnami",
       version: "5.9.3",
       namespace: "kube-system",
+      values: {
+        args: [
+          "--kubelet-insecure-tls",
+          "--kubelet-preferred-address-types=InternalIP",
+        ],
+      },
     });
   }
 }
