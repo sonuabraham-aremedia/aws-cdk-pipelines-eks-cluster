@@ -38,7 +38,7 @@ export class ExternalDNS extends Construct {
       chart: "external-dns",
       release: "external-dns",
       repository: "https://charts.bitnami.com/bitnami",
-      version: "8.7.5",
+      version: "8.8.0",
       values: {
         serviceAccount: {
           create: false,
