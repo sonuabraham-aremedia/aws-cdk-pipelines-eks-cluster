@@ -120,13 +120,13 @@ export class EksClusterStack extends cdk.Stack {
       cluster: cluster,
     });
 
-    new Calico(this, "Calico", {
-      cluster: cluster,
-    });
+    //new Calico(this, "Calico", {
+    //  cluster: cluster,
+    //});
 
-    new Prometheus(this, "Prometheus", {
-      cluster: cluster,
-    });
+    //new Prometheus(this, "Prometheus", {
+    //  cluster: cluster,
+    //});
 
     new Echoserver(this, "EchoServer", {
       cluster: cluster,
