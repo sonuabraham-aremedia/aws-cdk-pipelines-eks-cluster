@@ -53,7 +53,7 @@ export class ClusterAutoscaler extends Construct {
           "skip-nodes-with-system-pods": "false",
         },
         podDisruptionBudget: {
-          enabled: true,
+          minAvailable: 1, // ✅ Fixed incorrect "enabled" field
         },
       },
       version: "9.29.0",
