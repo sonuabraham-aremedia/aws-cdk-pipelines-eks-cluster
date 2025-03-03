@@ -112,9 +112,9 @@ export class EksClusterStack extends cdk.Stack {
       domainFilters: [`${props.nameSuffix}.${zoneName}`],
     });
 
-    new ClusterAutoscaler(this, "ClusterAutoscaler", {
-      cluster: cluster,
-    });
+    //new ClusterAutoscaler(this, "ClusterAutoscaler", {
+    //  cluster: cluster,
+    //});
 
     new ContainerInsights(this, "ContainerInsights", {
       cluster: cluster,
