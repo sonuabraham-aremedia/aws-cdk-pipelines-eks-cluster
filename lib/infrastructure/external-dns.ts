@@ -1,4 +1,4 @@
-import { Construct } from 'constructs';
+import { Construct } from "constructs";
 import eks = require("aws-cdk-lib/aws-eks");
 import iam = require("aws-cdk-lib/aws-iam");
 
@@ -38,7 +38,7 @@ export class ExternalDNS extends Construct {
       chart: "external-dns",
       release: "external-dns",
       repository: "https://charts.bitnami.com/bitnami",
-      version: "5.4.5",
+      version: "latest",
       values: {
         serviceAccount: {
           create: false,
