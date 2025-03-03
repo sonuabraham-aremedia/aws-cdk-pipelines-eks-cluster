@@ -106,11 +106,11 @@ export class EksClusterStack extends cdk.Stack {
       "/eks-cdk-pipelines/zoneName"
     );
 
-    new ExternalDNS(this, "ExternalDNS", {
-      cluster: cluster,
-      hostZoneId: hostZoneId,
-      domainFilters: [`${props.nameSuffix}.${zoneName}`],
-    });
+    //new ExternalDNS(this, "ExternalDNS", {
+    //  cluster: cluster,
+    //  hostZoneId: hostZoneId,
+    //  domainFilters: [`${props.nameSuffix}.${zoneName}`],
+    //});
 
     //new ClusterAutoscaler(this, "ClusterAutoscaler", {
     //  cluster: cluster,
